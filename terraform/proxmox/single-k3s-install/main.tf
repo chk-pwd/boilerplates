@@ -15,7 +15,7 @@ provider "proxmox" {
   pm_api_token_id = "terraform-prov@pve!terraform"
 
   # this is the full secret wrapped in quotes. don't worry, I've already deleted this from my proxmox cluster by the time you read this post
-  pm_api_token_secret = "60850beb-cbd0-473c-91a6-9188b06439ee"
+  pm_api_token_secret = "secret"
 
   # leave tls_insecure set to true unless you have your proxmox SSL certificate situation fully sorted out (if you do, you will know)
   pm_tls_insecure = true
