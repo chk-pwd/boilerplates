@@ -1,18 +1,33 @@
 variable "ssh_key" {
-  default = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDSEA915XsZGIUolTTS5ZrAYBpafMnDSex/25wp5zonoF5HkgvssUzgAj3lze6jJQS+SrGDwnWfAvFFQV+1llM7P8eKxQIty9JNZY/iqELFhc7dYJT3rLIyGevTF9rdNKQGilSpDUSOBeEAyh9ydBdJc50kMLT2uM3dh4zWDn6VPq5r1Mjh0Z7O4kOP/3Y9sswWor9y2vG013aTHJU29odVLc5pZyf7pYVUw9mUOe2lz+0ZCWdycCVb2nx2zwa3O+lo60zswIHr+sPsZKKTjme63eXCfCzMldYn/kQWJZJzex6qqjsONunxrPkiPR36VbP8XpAYg1eob+Yrvi4whlV86bnjP7L+xZhKatpkIxQA1XiIv1yXZVPpHEjz7ZwWXxNaGpgmDvC8uLwThWksFxco/VDstT38B3xpZGTq6EKiI1vRJZQGsu57Bp43Smi8Zvbv36fT43rEyP1/8Wi9rv27D8fF+SqspSCQXZhrtZ96dubwTlzEdgrjt1iY5jKSigc= hyoga@uplink"
+  description = "The public key to use for the cluster"
 }
-variable "proxmox_host" {
-    default = "caustic"
+variable "node1" {
+  description = "First Proxmox Node"
+}
+variable "node2" {
+  description = "Second Proxmox Node"
+}
+variable "node3" {
+  description = "Third Proxmox Node"
+}
+variable "master_count" {
+  description = "Count for master nodes"
+}
+variable "worker_count" {
+  description = "Count for worker nodes" 
+}
+variable "api_url" {
+  # url is the hostname (FQDN if you have one) for the proxmox host you'd like to connect to to issue the commands. my proxmox host is 'prox-1u'. Add /api2/json at the end for the API
+  description = "url for proxmox cluster"
+}
+variable "token_id" {
+  # api token id is in the form of: <username>@pam!<tokenId>
+  description = "Token ID for the cluster"
+}
+variable "token_secret" {
+  # this is the full secret wrapped in quotes. 
+  description = "Token secret for the proxmox cluster" 
 }
 variable "template_name" {
-    default = "debian11-golden"
+  description = "Template for the container to clone"
 }
-variable "vm_name" {
-    default = "ash"
-}
-#variable "pods_cidr" {
-
-#}
-#variable "master_cidr" {
-
-#}
