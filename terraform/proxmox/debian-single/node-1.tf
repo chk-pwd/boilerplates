@@ -27,7 +27,7 @@ resource "proxmox_vm_qemu" "debian-x11-bullseye" {
 
   disk {
     slot = 0
-    size = "10G"
+    size = "48G"
     type = "scsi"
     storage = "Arenas"
     iothread = 1
