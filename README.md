@@ -1,4 +1,4 @@
-# BryanJ Jones's "Boilerplates"
+# Bryan Jones's "Boilerplates"
 
 Hi, there!
 
