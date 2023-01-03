@@ -31,3 +31,9 @@ variable "token_secret" {
 variable "template_name" {
   description = "Template for the container to clone"
 }
+variable "vm_user" {
+  description = "The username for the current template"
+}
+variable "ip_address" {
+  description = "IPv4 Address for the VMs"
+}

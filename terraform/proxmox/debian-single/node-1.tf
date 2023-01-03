@@ -48,7 +48,25 @@ resource "proxmox_vm_qemu" "debian-x11-bullseye" {
   # Cloud init options
   #cicustom = "user=local:snippets/cloud_init_deb10_vm-01.yml"
   #ipconfig0 = "ip=172.16.16.3${count.index + 1}/24,gw=172.16.16.1"
-  ipconfig0 = "ip=172.16.16.65/24,gw=172.16.16.1"
+  ipconfig0 = "ip=${var.ip_address}/24,gw=172.16.16.1"
+
+  # Establishes connection to be used by all
+  # generic remote provisioners (i.e. file/remote-exec)
+  connection {
+    type     = "ssh"
+    user     = var.vm_user
+    host     = var.ip_address
+    agent = false
+    private_key = "${file("~/.ssh/id_rsa")}"
+  }
+
+  # Pull in Ansible Configurations 
+  provisioner "remote-exec" {
+    
+      inline = [
+        "bash -c '$(wget -qLO - https://raw.githubusercontent.com/chkpwd/scripts/main/Proxmox/helloworld.sh)'"
+      ]
+  }
  
   # SSH Keys settings
   sshkeys = <<EOF
