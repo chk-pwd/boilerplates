@@ -1,0 +1,35 @@
+---
+- name: install Docker
+  hosts: all
+  become: true
+  tasks:
+    - name: Install Prerequisites
+      ansible.builtin.apt:
+        name:
+          - apt-transport-https
+          - curl
+          - ca-certificates
+          - lsb-release
+          - gnupg2
+        state: latest
+        update_cache: yes
+
+    - name: Add signing key
+      ansible.builtin.apt_key:
+        url: "https://download.docker.com/linux/debian/gpg"
+        state: present
+
+    - name: Add Docker repository.
+      apt_repository:
+        repo: deb https://download.docker.com/linux/debian bullseye stable
+        state: present
+
+    - name: Install Docker
+      ansible.builtin.apt:
+        name:
+          - docker-ce
+          - docker-ce-cli
+          - containerd.io
+          - docker-compose-plugin
+        state: latest
+        update_cache: yes

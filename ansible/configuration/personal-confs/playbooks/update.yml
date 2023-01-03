@@ -1,0 +1,13 @@
+---
+- name: Install Updates
+  hosts: all
+  become: true
+  tasks:
+    
+    - name: Pull Updates
+      ansible.builtin.apt:
+       update_cache: yes
+
+    - name: Install Updates 
+      ansible.builtin.apt:
+        upgrade: dist

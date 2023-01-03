@@ -1,0 +1,17 @@
+---
+- name: Install Favorite Packages
+  hosts: all
+  become: yes
+
+  tasks:
+  - name: Install PKGs
+    ansible.builtin.apt:
+      pkg:
+        - ranger
+        - vim
+        - curl
+        - git
+        - wget
+      state: latest
+      update_cache: yes
+
