@@ -2,7 +2,7 @@
 # we are looking to create a proxmox_vm_qemu entity named test_server
 resource "proxmox_vm_qemu" "debian-x11-bullseye" {
 
-  count = var.master_count # just want 1 for now, set to 0 and apply to destroy VM
+  count = var.vm_count # just want 1 for now, set to 0 and apply to destroy VM
   name = "debian-x11-bullseye-${count.index + 1}" #count.index starts at 0, so + 1 means this VM will be named test-vm-1 in proxmox
   
   # Specify VMID for the cluster
@@ -10,7 +10,7 @@ resource "proxmox_vm_qemu" "debian-x11-bullseye" {
   #vmid = "50${count.index + 1}"
 
   # Proxmox target node
-  target_node = var.node1
+  target_node = var.node
 
   # Clone machine info
   clone = var.template_name
@@ -20,7 +20,7 @@ resource "proxmox_vm_qemu" "debian-x11-bullseye" {
   os_type = "cloud-init"
   cores = 1
   sockets = 1
-  cpu = "host"
+  cpu = "kvm64"
   memory = 1024
   scsihw = "virtio-scsi-pci"
   bootdisk = "scsi0"
@@ -36,7 +36,7 @@ resource "proxmox_vm_qemu" "debian-x11-bullseye" {
   # Configure multiple NICs
   network {
     model = "virtio"
-    bridge = "vmbr0"
+    bridge = var.bridge
   }
 
   lifecycle {
@@ -48,7 +48,7 @@ resource "proxmox_vm_qemu" "debian-x11-bullseye" {
   # Cloud init options
   #cicustom = "user=local:snippets/cloud_init_deb10_vm-01.yml"
   #ipconfig0 = "ip=172.16.16.3${count.index + 1}/24,gw=172.16.16.1"
-  ipconfig0 = "ip=${var.ip_address}/24,gw=172.16.16.1"
+  ipconfig0 = "ip=${var.ip_address}/24,gw=${var.gateway}"
 
   # Establishes connection to be used by all
   # generic remote provisioners (i.e. file/remote-exec)
@@ -64,7 +64,7 @@ resource "proxmox_vm_qemu" "debian-x11-bullseye" {
   provisioner "remote-exec" {
     
       inline = [
-        "bash -c '$(wget -qLO - https://raw.githubusercontent.com/chkpwd/scripts/main/Proxmox/helloworld.sh)'"
+        "bash -c '$(curl -fsSL https://raw.githubusercontent.com/chkpwd/scripts/main/Proxmox/helloworld.sh)'"
       ]
   }
  

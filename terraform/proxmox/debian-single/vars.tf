@@ -1,20 +1,11 @@
+variable "vm_count" {
+  description = "Specific numerical count for the VMs"
+}
 variable "ssh_key" {
   description = "The public key to use for the cluster"
 }
-variable "node1" {
+variable "node" {
   description = "First Proxmox Node"
-}
-variable "node2" {
-  description = "Second Proxmox Node"
-}
-variable "node3" {
-  description = "Third Proxmox Node"
-}
-variable "master_count" {
-  description = "Count for master nodes"
-}
-variable "worker_count" {
-  description = "Count for worker nodes" 
 }
 variable "api_url" {
   # url is the hostname (FQDN if you have one) for the proxmox host you'd like to connect to to issue the commands. my proxmox host is 'prox-1u'. Add /api2/json at the end for the API
@@ -36,4 +27,10 @@ variable "vm_user" {
 }
 variable "ip_address" {
   description = "IPv4 Address for the VMs"
+}
+variable "gateway" {
+  description = "Set the gateway for the interface"
+}
+variable "bridge" {
+  description = "Linux Bridge for the VM"
 }
