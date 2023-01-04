@@ -34,3 +34,18 @@ variable "gateway" {
 variable "bridge" {
   description = "Linux Bridge for the VM"
 }
+variable "disk_size" {
+  description = "Size of the VM Disk"
+}
+variable "cpu_count" {
+  description = "Core count for the VM"
+}
+variable "ram_size" {
+  description = "RAM Size for the VM"
+}
+variable "storage_location" {
+  description = "Storage location for the VM"
+}
+variable "vlan_tag" {
+  description = "VLAN tagging for the nic on the VM"
+}

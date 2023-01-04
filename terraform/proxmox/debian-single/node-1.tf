@@ -18,25 +18,26 @@ resource "proxmox_vm_qemu" "debian-x11-bullseye" {
   # VMs settings
   agent = 1
   os_type = "cloud-init"
-  cores = 1
+  cores = var.cpu_count
   sockets = 1
   cpu = "kvm64"
-  memory = 1024
+  memory = var.ram_size
   scsihw = "virtio-scsi-pci"
   bootdisk = "scsi0"
 
   disk {
     slot = 0
-    size = "48G"
+    size = "${var.disk_size}G"
     type = "scsi"
-    storage = "Arenas"
+    storage = "${var.storage_location}"
     iothread = 1
   }
   
   # Configure multiple NICs
   network {
     model = "virtio"
-    bridge = var.bridge
+    bridge = "${var.bridge}"
+    tag = var.vlan_tag
   }
 
   lifecycle {
@@ -64,7 +65,7 @@ resource "proxmox_vm_qemu" "debian-x11-bullseye" {
   provisioner "remote-exec" {
     
       inline = [
-        "bash -c '$(curl -fsSL https://raw.githubusercontent.com/chkpwd/scripts/main/Proxmox/helloworld.sh)'"
+        "curl -fsSL https://raw.githubusercontent.com/chkpwd/scripts/main/Proxmox/helloworld.sh | exec bash"
       ]
   }
  
