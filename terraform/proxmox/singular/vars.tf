@@ -49,3 +49,6 @@ variable "storage_location" {
 variable "vlan_tag" {
   description = "VLAN tagging for the nic on the VM"
 }
+variable "vm_name" {
+  description = "Name/Hostname of the VM"
+}
