@@ -3,6 +3,7 @@ variable "vm_count" {
 }
 variable "ssh_key" {
   description = "The public key to use for the cluster"
+  sensitive = true
 }
 variable "node" {
   description = "First Proxmox Node"
@@ -10,14 +11,17 @@ variable "node" {
 variable "api_url" {
   # url is the hostname (FQDN if you have one) for the proxmox host you'd like to connect to to issue the commands. my proxmox host is 'prox-1u'. Add /api2/json at the end for the API
   description = "url for proxmox cluster"
+  sensitive = true
 }
 variable "token_id" {
   # api token id is in the form of: <username>@pam!<tokenId>
   description = "Token ID for the cluster"
+  sensitive = true
 }
 variable "token_secret" {
   # this is the full secret wrapped in quotes. 
   description = "Token secret for the proxmox cluster" 
+  sensitive = true
 }
 variable "template_name" {
   description = "Template for the container to clone"
